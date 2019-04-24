@@ -1,5 +1,3 @@
-'use strict';
-
 import StatementApi from '../lib/statementApi.js';
 import _ from 'lodash';
 

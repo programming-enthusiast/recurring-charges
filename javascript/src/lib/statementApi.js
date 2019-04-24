@@ -1,5 +1,3 @@
-'use strict';
-
 import chargeList from '../config/charges.js';
 
 class StatementApi {

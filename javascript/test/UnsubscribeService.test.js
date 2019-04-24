@@ -1,5 +1,3 @@
-'use strict';
-
 import StatementApi from '../src/lib/statementApi.js';
 import UnsubscribeService from '../src/app/UnsubscribeService.js'
 import _ from 'lodash';
