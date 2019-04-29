@@ -22,7 +22,6 @@ describe UnsubscribeService do
       expect(charges[sample_name]).to be(2)
     end
 
-    # This test fails initially
     it "does not include charges that only occur once" do
       create_charge(sample_name, sample_date, sample_amount)
 
