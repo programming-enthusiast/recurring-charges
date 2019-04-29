@@ -6,6 +6,21 @@ from app.statement_api import StatementAPI
 
 class TestUnsubscribeService(unittest.TestCase):
 
+    def test_does_not_include_charges_that_only_occur_once(self):
+        mock = MagicMock()
+        mock.return_value = [
+            {
+                "name": "Spotify",
+                "date": "1/1/2019",
+                "amount": "9.99"
+            }
+        ]
+        StatementAPI.get_charges = mock
+
+        result = UnsubscribeService.display_recurring_charges()
+        key_presence = "Spotify" in result
+        self.assertEqual(key_presence, False)
+
     def test_sums_the_charges_that_occur_more_than_once(self):
         mock = MagicMock()
         mock.return_value = [
@@ -24,21 +39,6 @@ class TestUnsubscribeService(unittest.TestCase):
 
         result = UnsubscribeService.display_recurring_charges()
         self.assertEqual(result["Spotify"], 2)
-
-    def test_does_not_include_charges_that_only_occur_once(self):
-        mock = MagicMock()
-        mock.return_value = [
-            {
-                "name": "Spotify",
-                "date": "1/1/2019",
-                "amount": "9.99"
-            }
-        ]
-        StatementAPI.get_charges = mock
-
-        result = UnsubscribeService.display_recurring_charges()
-        key_presence = "Spotify" in result
-        self.assertEqual(key_presence, False)
 
 if __name__ == '__main__':
     unittest.main()
