@@ -6,4 +6,5 @@
 * `bundle install`
 
 ## Tests
+
 Run `rspec` to run the test suite
