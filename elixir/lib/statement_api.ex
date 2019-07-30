@@ -7,6 +7,7 @@ defmodule StatementAPI do
     case read_result do
       {:ok, %{charges: charges}} ->
         charges
+
       _ ->
         "Something's not right here..."
     end

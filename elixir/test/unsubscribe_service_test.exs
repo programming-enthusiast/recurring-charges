@@ -3,6 +3,7 @@ defmodule UnsubscribeServiceTest do
 
   test "sums the charges that occur more than once" do
     sample_name = "Spotify"
+
     charges = [
       %{amount: 9.99, date: "2/1/2018", name: sample_name},
       %{amount: 9.99, date: "3/1/2018", name: sample_name}
