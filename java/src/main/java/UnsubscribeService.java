@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UnsubscribeService {
@@ -7,7 +8,7 @@ public class UnsubscribeService {
         Map<String, Integer> billStatement = new HashMap<String, Integer>();
         Map<String, Integer> recurringCharges = new HashMap<String, Integer>();
 
-        for (Map<String, String> charge : StatementApi.getCharges()) {
+        for (Map<String, String> charge : getCharges()) {
             String name = charge.get("name");
             int chargeCount = billStatement.getOrDefault(name, 0) + 1;
             billStatement.put(name, chargeCount);
@@ -21,4 +22,9 @@ public class UnsubscribeService {
 
         return recurringCharges;
     }
+
+   public List<HashMap<String, String>> getCharges() {
+     StatementApi statementApi = new StatementApi();
+     return statementApi.getCharges();
+   }
 }
