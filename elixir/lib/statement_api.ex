@@ -9,7 +9,7 @@ defmodule StatementAPI do
         charges
 
       _ ->
-        "Something's not right here..."
+        "Read result of charges.yml was in an unexpected format."
     end
   end
 end
