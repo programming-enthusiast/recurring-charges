@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class UnsubscribeService {
         return recurringCharges;
     }
 
-   public List<HashMap<String, String>> getCharges() {
+   public List<Map<String, String>> getCharges() {
      StatementApi statementApi = new StatementApi();
      return statementApi.getCharges();
    }

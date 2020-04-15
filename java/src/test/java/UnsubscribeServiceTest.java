@@ -15,13 +15,13 @@ import org.mockito.Mock;
 
 public class UnsubscribeServiceTest {
 
-    private List<HashMap<String, String>> statementCharges;
+    private List<Map<String, String>> statementCharges;
     private UnsubscribeService service;
 
     @BeforeEach
     public void beforeFunction() {
         service = mock(UnsubscribeService.class);
-        statementCharges = new ArrayList<HashMap<String, String>>();
+        statementCharges = new ArrayList<Map<String, String>>();
 
         when(service.displayRecurringCharges()).thenCallRealMethod();
         when(service.getCharges()).thenReturn(statementCharges);
@@ -43,7 +43,7 @@ public class UnsubscribeServiceTest {
     }
 
     private void addCharge(String name, String date, String amount) {
-        HashMap<String, String> statementCharge = new HashMap<String, String>();
+        Map<String, String> statementCharge = new HashMap<String, String>();
         statementCharge.put("name", name);
         statementCharge.put("date", date);
         statementCharge.put("amount", amount);
