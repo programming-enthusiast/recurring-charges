@@ -17,11 +17,17 @@ An array of charges with the following attributes:
 
 *Example Format:*
 ```javascript
-{
+[{
   name: 'NextCapital Premium',
   date: '01/01/2019',
   amount: 9.99
-}
+},
+// ...
+{
+  name: 'Spotify',
+  date: '12/01/2019',
+  amount: 12.99
+}]
 ```
 
 #### Outputs
