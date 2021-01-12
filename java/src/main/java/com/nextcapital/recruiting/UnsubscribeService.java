@@ -5,11 +5,20 @@ import java.util.List;
 import java.util.Map;
 
 public class UnsubscribeService {
-   public Map<String, Integer> displayRecurringCharges() {
-        Map<String, Integer> billStatement = new HashMap<String, Integer>();
-        Map<String, Integer> recurringCharges = new HashMap<String, Integer>();
+	private StatementApi statementApi;
 
-        for (Map<String, String> charge : getCharges()) {
+	public UnsubscribeService(StatementApi statementApi) {
+		this.statementApi = statementApi;
+		
+	}
+	
+   public Map<String, Integer> displayRecurringCharges() {
+		Map<String, Integer> billStatement = new HashMap<>();
+		Map<String, Integer> recurringCharges = new HashMap<>();
+
+		List<Map<String, String>> charges = statementApi.getCharges();
+
+		for (Map<String, String> charge : charges) {
             String name = charge.get("name");
             int chargeCount = billStatement.getOrDefault(name, 0) + 1;
             billStatement.put(name, chargeCount);
@@ -23,9 +32,4 @@ public class UnsubscribeService {
 
         return recurringCharges;
     }
-
-   public List<Map<String, String>> getCharges() {
-     StatementApi statementApi = new StatementApi();
-     return statementApi.getCharges();
-   }
 }

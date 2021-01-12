@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class StatementApi {
     public List<Map<String, String>> getCharges() {
-        List<Map<String, String>> statementCharges = new ArrayList<Map<String, String>>();
+    	List<Map<String, String>> statementCharges = new ArrayList<>();
         
-        Map<String, String> firstStatementCharge = new HashMap<String, String>();
+    	Map<String, String> firstStatementCharge = new HashMap<>();
         firstStatementCharge.put("name", "Spotify");
         firstStatementCharge.put("date", "1/1/2019");
         firstStatementCharge.put("amount", "9.99");

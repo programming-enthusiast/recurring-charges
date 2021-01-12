@@ -1,7 +1,9 @@
 package com.nextcapital.recruiting;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,11 +20,11 @@ public class UnsubscribeServiceTest {
 
     @BeforeEach
     public void beforeFunction() {
-        service = mock(UnsubscribeService.class);
-        statementCharges = new ArrayList<Map<String, String>>();
+    	statementCharges = new ArrayList<>();
+    	StatementApi statementApi = mock(StatementApi.class);
+        service = new UnsubscribeService(statementApi);
 
-        when(service.displayRecurringCharges()).thenCallRealMethod();
-        when(service.getCharges()).thenReturn(statementCharges);
+        when(statementApi.getCharges()).thenReturn(statementCharges);
     }
 
     @Test
@@ -41,7 +43,7 @@ public class UnsubscribeServiceTest {
     }
 
     private void addCharge(String name, String date, String amount) {
-        Map<String, String> statementCharge = new HashMap<String, String>();
+        Map<String, String> statementCharge = new HashMap<>();
         statementCharge.put("name", name);
         statementCharge.put("date", date);
         statementCharge.put("amount", amount);
