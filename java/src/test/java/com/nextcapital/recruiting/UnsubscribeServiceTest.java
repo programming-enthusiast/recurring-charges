@@ -15,38 +15,38 @@ import org.junit.jupiter.api.Test;
 
 public class UnsubscribeServiceTest {
 
-    private List<Map<String, String>> statementCharges;
-    private UnsubscribeService service;
+	private List<Map<String, String>> statementCharges;
+	private UnsubscribeService service;
 
-    @BeforeEach
-    public void beforeFunction() {
-    	statementCharges = new ArrayList<>();
-    	StatementApi statementApi = mock(StatementApi.class);
-        service = new UnsubscribeService(statementApi);
+	@BeforeEach
+	public void beforeFunction() {
+		statementCharges = new ArrayList<>();
+		StatementApi statementApi = mock(StatementApi.class);
+		service = new UnsubscribeService(statementApi);
 
-        when(statementApi.getCharges()).thenReturn(statementCharges);
-    }
+		when(statementApi.getCharges()).thenReturn(statementCharges);
+	}
 
-    @Test
-    public void testDoesNotIncludeChargesThatOnlyOccurOnce() {
-        addCharge("Spotify", "1/1/2019", "9.99");
+	@Test
+	public void testDoesNotIncludeChargesThatOnlyOccurOnce() {
+		addCharge("Spotify", "1/1/2019", "9.99");
 
-        assertFalse(service.displayRecurringCharges().containsKey("Spotify"));
-    }
+		assertFalse(service.displayRecurringCharges().containsKey("Spotify"));
+	}
 
-    @Test
-    public void testSumsTheChargesThatOccurMoreThanOnce() {
-        addCharge("Spotify", "1/1/2019", "9.99");
-        addCharge("Spotify", "2/1/2019", "9.99");
+	@Test
+	public void testSumsTheChargesThatOccurMoreThanOnce() {
+		addCharge("Spotify", "1/1/2019", "9.99");
+		addCharge("Spotify", "2/1/2019", "9.99");
 
-        assertTrue(2 == service.displayRecurringCharges().get("Spotify"));
-    }
+		assertTrue(2 == service.displayRecurringCharges().get("Spotify"));
+	}
 
-    private void addCharge(String name, String date, String amount) {
-        Map<String, String> statementCharge = new HashMap<>();
-        statementCharge.put("name", name);
-        statementCharge.put("date", date);
-        statementCharge.put("amount", amount);
-        statementCharges.add(statementCharge);
-    }
+	private void addCharge(String name, String date, String amount) {
+		Map<String, String> statementCharge = new HashMap<>();
+		statementCharge.put("name", name);
+		statementCharge.put("date", date);
+		statementCharge.put("amount", amount);
+		statementCharges.add(statementCharge);
+	}
 }

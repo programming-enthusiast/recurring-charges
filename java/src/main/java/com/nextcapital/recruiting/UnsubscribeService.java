@@ -9,27 +9,26 @@ public class UnsubscribeService {
 
 	public UnsubscribeService(StatementApi statementApi) {
 		this.statementApi = statementApi;
-		
 	}
-	
-   public Map<String, Integer> displayRecurringCharges() {
+
+	public Map<String, Integer> displayRecurringCharges() {
 		Map<String, Integer> billStatement = new HashMap<>();
 		Map<String, Integer> recurringCharges = new HashMap<>();
 
 		List<Map<String, String>> charges = statementApi.getCharges();
 
 		for (Map<String, String> charge : charges) {
-            String name = charge.get("name");
-            int chargeCount = billStatement.getOrDefault(name, 0) + 1;
-            billStatement.put(name, chargeCount);
-        }
+			String name = charge.get("name");
+			int chargeCount = billStatement.getOrDefault(name, 0) + 1;
+			billStatement.put(name, chargeCount);
+		}
 
-        for (Map.Entry<String, Integer> chargeEntry : billStatement.entrySet()) {
-            if (chargeEntry.getValue() >= 1) {
-                recurringCharges.put(chargeEntry.getKey(), chargeEntry.getValue());
-            }
-        }
+		for (Map.Entry<String, Integer> chargeEntry : billStatement.entrySet()) {
+			if (chargeEntry.getValue() >= 1) {
+				recurringCharges.put(chargeEntry.getKey(), chargeEntry.getValue());
+			}
+		}
 
-        return recurringCharges;
-    }
+		return recurringCharges;
+	}
 }
