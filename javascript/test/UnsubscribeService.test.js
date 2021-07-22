@@ -3,7 +3,7 @@ import UnsubscribeService from '../src/app/UnsubscribeService.js'
 import _ from 'lodash';
 
 describe('UnsubscribeService', () => {
-  describe('#displayRecurringCharges', () => {
+  describe('#getPriceMap', () => {
     const subject = new UnsubscribeService();
     const sampleName = "Spotify";
     const sampleDate = "1/1/18";
@@ -24,19 +24,16 @@ describe('UnsubscribeService', () => {
       jest.spyOn(StatementApi, 'getCharges').mockImplementation(() => statementCharges);
     });
 
-    test('sums the charges that occur more than once', () => {
-      createCharge(sampleName, "1/1/18", sampleAmount);
-      createCharge(sampleName, "1/2/18", sampleAmount);
+    test('gets recent prices', () => {
 
-      const recurringCharges = subject.displayRecurringCharges();
-      expect(recurringCharges[sampleName]).toBe(2);
-    });
+      createCharge(sampleName, "1/1/2018", 5.99);
+      createCharge(sampleName, "3/1/2018", 4.76);
+      createCharge(sampleName, "5/1/2018", 6.99);
 
-    test('does not include charges that only occur once', () => {
-      createCharge(sampleName, sampleDate, sampleAmount)
+      const priceMap = subject.getPriceMap();
 
-      const recurringCharges = subject.displayRecurringCharges();
-      expect(recurringCharges[sampleName]).toBeUndefined();
+      expect(priceMap[sampleName].date).toBe('5/1/2018');
+      expect(priceMap[sampleName].amount).toBe(6.99);
     });
   });
 });

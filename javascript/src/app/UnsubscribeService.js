@@ -2,23 +2,22 @@ import StatementApi from '../lib/statementApi.js';
 import _ from 'lodash';
 
 class UnsubscribeService {
-  displayRecurringCharges() {
-    let billStatement = {};
-    let recurringCharges = {};
+  getPriceMap() {
+    let priceMap = {};
 
     _.forEach(StatementApi.getCharges(), (charge) => {
-      const name = charge.name;
-      billStatement[name] = billStatement[name] || 0;
-      billStatement[name] += 1;
-    });
-
-    _.forEach(billStatement, (chargeCount, chargeName) => {
-      if (chargeCount >= 1) {
-        _.set(recurringCharges, chargeName, chargeCount);
+      if (priceMap[charge.name] !== undefined) {
+        const dateA = new Date(priceMap[charge.name].date)
+        const dateB = new Date(charge.date)
+        if (dateA < dateB)
+          priceMap[charge.name] = { amount: charge.amount, date: charge.date }
+      } else {
+        priceMap[charge.name] = { amount: charge.amount, date: charge.date }
       }
+
     });
 
-    return recurringCharges;
+    return priceMap;
   }
 }
 
